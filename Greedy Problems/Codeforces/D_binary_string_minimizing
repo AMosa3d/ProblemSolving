@@ -1,0 +1,50 @@
+// Problem Link : https://codeforces.com/problemset/problem/1256/D
+ 
+#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include<iostream>
+#include<vector>
+#include<deque>
+#include<set>
+#include<map>
+#include<string>
+#include<fstream>
+#include<algorithm>
+#include<math.h>
+#include<iomanip>
+ 
+#define ll long long
+ 
+using namespace std;
+ 
+ll min(ll a, ll b) {
+	return a < b ? a : b;
+}
+ 
+int main() {
+	int n, q; ll k; string s; cin >> q;
+	for (int i = 0; i < q; i++) {
+		cin >> n >> k >> s;
+		int startpos = 0;
+		for (int j = 0; j < n; j++) {
+			if (s[j] == '1')
+				continue;
+			if (k == 0)
+				break;
+ 
+			ll diff = min(j - startpos, k);
+			k -= diff;
+ 
+			int indexToSwitch = j - diff;
+			char x = s[indexToSwitch];
+			s[indexToSwitch] = s[j];
+			s[j] = x;
+ 
+			startpos++;
+		}
+		cout << s << endl;
+	}
+ 
+	return 0;
+}
