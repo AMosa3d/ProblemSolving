@@ -1,0 +1,68 @@
+// Problem Link : https://codeforces.com/problemset/problem/1227/D1
+
+#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include<iostream>
+#include<vector>
+#include<deque>
+#include<set>
+#include<map>
+#include<string>
+#include<fstream>
+#include<algorithm>
+#include<math.h>
+#include<iomanip>
+
+#define ll long long
+
+using namespace std;
+
+int main() {
+	int n, m, k, p;
+	ll *arr, *sorted, *sorted_copy;
+	cin >> n;
+	arr = new ll[n], sorted = new ll[n], sorted_copy = new ll[n];
+	ll** res = new ll*[n];
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+		sorted[i] = arr[i];
+	}
+	sort(sorted, sorted + n);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++)
+			sorted_copy[j] = sorted[j];
+		
+		res[i] = new ll[i + 1];
+		int pos_to_insert = 0;
+		for (int j = 0; j < n; j++) {
+			for (int k = n - i - 1; k < n; k++) {
+				if (arr[j] == sorted_copy[k]) {
+					sorted_copy[k] = 0;
+					res[i][pos_to_insert++] = arr[j];
+					break;
+				}
+			}
+		}
+	}
+	cin >> m;
+	for (int i = 0; i < m; i++) {
+		cin >> k >> p;
+		cout << res[k-1][p-1] << endl;
+	}
+
+	/*for (int i = 0; i < n; i++) {
+		cout << "i = " << i << " : ";
+		for (int j = 0; j < i + 1; j++) {
+			cout << res[i][j] << " - ";
+		}
+		cout << endl;
+	}*/
+		
+
+	for (int i = 0; i < n; i++)
+		delete[] res[i];
+
+	delete[] sorted, delete[] arr, delete[] res;
+	return 0;
+}
